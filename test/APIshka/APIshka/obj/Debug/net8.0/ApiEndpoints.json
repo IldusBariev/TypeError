@@ -1,0 +1,18 @@
+[
+  {
+    "ContainingType": "APIshka.Controllers.UserLogin",
+    "Method": "Authorization",
+    "RelativePath": "UserLogin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "APIshka.Request.UserLoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

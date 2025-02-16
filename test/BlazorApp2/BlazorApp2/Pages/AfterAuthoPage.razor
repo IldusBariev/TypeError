@@ -1,0 +1,92 @@
+﻿@page "/afterAuthoPage"
+
+<PageTitle>AfterAuthoPage</PageTitle>
+
+<div class="news-add-wrapper">
+
+
+        <div class="work-from-news">
+
+
+            <div class="news-add-container">
+
+                <EditForm Model="newsAdd">
+                    <DataAnnotationsValidator />
+
+
+                    <p>Загловок новости</p>
+                    <InputTextArea class="news-title"
+                                   @bind-Value="newsAdd.Title"
+                                   placeholder="Загаловок" 
+                                   rows="3"/>
+                    <ValidationMessage For="() => newsAdd.Title" />
+
+                    <p>Содеражние</p>
+                    <InputTextArea class="news-description"
+                                   max-heigth="15%"
+                                   @bind-Value="newsAdd.Description"
+                                   placeholder="Описание"
+                                   rows="20"/>
+                    <ValidationMessage For="() => newsAdd.Description" />
+
+                    <p>Фотография</p>
+                    <InputFile OnChange="OnInputFileChange" />
+
+
+                </EditForm>
+
+            </div>
+
+            <div class="empty-div"></div>
+
+            <div class="news-view-container">
+                <h2>Примерный вид</h2>
+                <div class="news-main-views">
+
+                    <div class="news-view-block">
+
+
+                        <div class="news-image-container">
+                            <img src="@imageBase64">
+                        </div>
+
+                        <div class="news-main-container">
+
+                            <h3>@newsAdd.Title</h3>
+
+                            <p>@newsAdd.Description</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+</div>
+
+@code {
+    private NewsAdd newsAdd = new();
+
+    private string? imageBase64;
+
+    private async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        if (file != null)
+        {
+            using var memoryStream = new MemoryStream();
+            await file.OpenReadStream().CopyToAsync(memoryStream);
+            var imageBytes = memoryStream.ToArray();
+            imageBase64 = $"data:{file.ContentType};base64,{Convert.ToBase64String(imageBytes)}";
+            StateHasChanged(); // Force a re-render
+        }
+        else
+        {
+            imageBase64 = null; // Clear the image
+        }
+    }
+
+}
