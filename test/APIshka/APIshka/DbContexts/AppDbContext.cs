@@ -13,7 +13,7 @@ namespace APIshka.DbContexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySql(
-                "server=localhost;username=root;password=123456789;database=apishechka",
+                "server=localhost;username=root;password=12032003;database=apishechka",
                 new MySqlServerVersion(new Version(8, 0, 40)));
         }
 
